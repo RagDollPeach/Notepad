@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    >
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:text="Test text"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:icon="@android:drawable/ic_menu_share"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="90dp" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:navigationIconTint="@color/black"
+        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar"
+        app:strokeWidth="1dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/bottom_app_bar"
+        app:srcCompat="@drawable/ic_plus_fab"
+        android:backgroundTint="#E46F4A"
+        app:tint="@android:color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
