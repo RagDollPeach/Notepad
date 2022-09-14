@@ -16,6 +16,6 @@ class NotesViewModel(private val lifeData: MutableLiveData<AppState> = MutableLi
     fun sentRequest() {
 //        lifeData.value = AppState.Loading
 //        lifeData.value = AppState.Error(Exception())
-        lifeData.value = AppState.Success(repository.getNote())
+        lifeData.value = AppState.Success(repository.getNotes())
     }
 }

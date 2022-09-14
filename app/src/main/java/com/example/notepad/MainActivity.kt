@@ -3,7 +3,7 @@ package com.example.notepad
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.notepad.databinding.ActivityMainBinding
-import com.example.notepad.view.fragments.NotesFragment
+import com.example.notepad.view.fragments.NoteListFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, NotesFragment.newInstance())
+                .replace(R.id.container, NoteListFragment.newInstance())
                 .commitNow()
         }
     }

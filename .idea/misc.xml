@@ -6,7 +6,9 @@
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/drawable/ic_hamburger_menu_bottom_bar.xml" value="0.1365" />
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/drawable/ic_plus_fab.xml" value="0.1365" />
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/activity_main.xml" value="0.2713541666666667" />
+        <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/fragment_note.xml" value="0.29583333333333334" />
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/fragment_notes.xml" value="0.25729166666666664" />
+        <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/loading_bar.xml" value="0.29583333333333334" />
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/note_item.xml" value="0.271875" />
         <entry key="..\:/Android_kotlin/Notepad/app/src/main/res/layout/note_layout.xml" value="0.2703125" />
       </map>
