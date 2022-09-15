@@ -2,6 +2,7 @@ package com.example.notepad
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html.fromHtml
 import com.example.notepad.databinding.ActivityMainBinding
 import com.example.notepad.view.fragments.NoteListFragment
 
@@ -10,6 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.title = fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {

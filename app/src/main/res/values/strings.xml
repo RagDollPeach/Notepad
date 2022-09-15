@@ -2,4 +2,10 @@
     <string name="app_name">Notepad</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_note">New note</string>
+    <string name="title">Title…</string>
+    <string name="note">Note text…</string>
+    <string name="save">Save</string>
+    <string name="insert_date">Insert date</string>
+    <string name="clear">Clear text</string>
 </resources>

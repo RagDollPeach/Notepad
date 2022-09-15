@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notepad.R
@@ -15,7 +14,7 @@ import com.example.notepad.model.data.Note
 import com.example.notepad.view.adapters.NotesAdapter
 import com.example.notepad.view.interfaces.OnItemClick
 import com.example.notepad.view.viewmodel.AppState
-import com.example.notepad.view.viewmodel.NotesViewModel
+import com.example.notepad.view.viewmodel.NoteListViewModel
 
 class NoteListFragment : Fragment() , OnItemClick {
 
@@ -36,9 +35,10 @@ class NoteListFragment : Fragment() , OnItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: NotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
+        val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
         viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.sentRequest()
+        viewModel.sendRequest()
+        binding.fab.setOnClickListener { switchFragment(CreateNoteFragment()) }
     }
 
     private fun renderData(appState: AppState) {
@@ -60,8 +60,12 @@ class NoteListFragment : Fragment() , OnItemClick {
         pref.edit().putString("text", note.text).apply()
         pref.edit().putString("date", note.date).apply()
 
+        switchFragment(CreateNoteFragment.newInstance())
+    }
+
+    private fun switchFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, CreateNoteFragment.newInstance())
+            .replace(R.id.container, fragment)
             .addToBackStack("")
             .commit()
     }

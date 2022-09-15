@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.notepad.R
 import com.example.notepad.databinding.FragmentCreateNoteBinding
+import com.example.notepad.model.data.Note
+import com.example.notepad.view.viewmodel.NoteListViewModel
 
 
 class CreateNoteFragment : Fragment() {
@@ -30,10 +34,31 @@ class CreateNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val pref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE)
+        val noteText = binding.noteInput
+        val titleText = binding.titleInput
+        titleText.setText(pref.getString("title", ""))
+        noteText.setText(pref.getString("text", ""))
 
-        binding.titleInput.setText(pref.getString("title", ""))
-        binding.noteInput.setText(pref.getString("text", ""))
+        binding.clearButton.setOnClickListener { noteText.setText("") }
+        binding.fab.setOnClickListener { switchFragment(NoteListFragment.newInstance()) }
 
+        val title = binding.titleInput.text.toString()
+        val text = binding.noteInput.text.toString()
+
+        val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
+        val note = Note(title, text, "01.07.2022")
+        viewModel.getLifeData().observe(viewLifecycleOwner) {}
+        binding.saveButton.setOnClickListener {
+            viewModel.insert(note)
+            switchFragment(NoteListFragment.newInstance())
+        }
+    }
+
+    private fun switchFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack("")
+            .commit()
     }
 
     override fun onDestroyView() {
