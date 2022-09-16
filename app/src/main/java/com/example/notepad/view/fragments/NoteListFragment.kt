@@ -12,11 +12,12 @@ import com.example.notepad.R
 import com.example.notepad.databinding.FragmentNotesBinding
 import com.example.notepad.model.data.Note
 import com.example.notepad.view.adapters.NotesAdapter
+import com.example.notepad.view.interfaces.Deletable
 import com.example.notepad.view.interfaces.OnItemClick
 import com.example.notepad.view.viewmodel.AppState
 import com.example.notepad.view.viewmodel.NoteListViewModel
 
-class NoteListFragment : Fragment() , OnItemClick {
+class NoteListFragment : Fragment() , OnItemClick , Deletable{
 
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
@@ -33,25 +34,31 @@ class NoteListFragment : Fragment() , OnItemClick {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
         viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendRequest()
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment()) }
+
     }
 
     private fun renderData(appState: AppState) {
         val recyclerView = binding.recyclerView
         when(appState) {
             is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/}
-            AppState.Loading -> {/*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE*/}
             is AppState.Success -> {
                 /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.adapter = NotesAdapter(appState.noteData, this)
+                recyclerView.adapter = NotesAdapter(appState.noteData, this, this)
             }
         }
+    }
+
+    override fun deleteOnLongClick(title: String) {
+        val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
+        viewModel.delete(title)
     }
 
     override fun onItemClick(note: Note) {
@@ -74,6 +81,4 @@ class NoteListFragment : Fragment() , OnItemClick {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

@@ -42,13 +42,12 @@ class CreateNoteFragment : Fragment() {
         binding.clearButton.setOnClickListener { noteText.setText("") }
         binding.fab.setOnClickListener { switchFragment(NoteListFragment.newInstance()) }
 
-        val title = binding.titleInput.text.toString()
-        val text = binding.noteInput.text.toString()
-
         val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
-        val note = Note(title, text, "01.07.2022")
-        viewModel.getLifeData().observe(viewLifecycleOwner) {}
+
         binding.saveButton.setOnClickListener {
+            val title = binding.titleInput.text.toString()
+            val text = binding.noteInput.text.toString()
+            val note = Note(title, text, "01.07.2022")
             viewModel.insert(note)
             switchFragment(NoteListFragment.newInstance())
         }

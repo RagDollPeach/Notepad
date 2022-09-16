@@ -3,6 +3,7 @@ package com.example.notepad.model
 import com.example.notepad.MyApplication
 import com.example.notepad.model.data.Note
 import com.example.notepad.model.room.NoteEntity
+import com.example.notepad.view.interfaces.NotesRepository
 
 class NotesRepositoryImpl: NotesRepository {
 
@@ -12,6 +13,10 @@ class NotesRepositoryImpl: NotesRepository {
 
     override fun insertNote(note: Note) {
         MyApplication.getNoteDatabase().noteDao().insert(converterWeatherToEntity(note))
+    }
+
+    override fun deleteNote(title: String) {
+        MyApplication.getNoteDatabase().noteDao().deleteNoteBYTitle(title)
     }
 
     override fun getNote(title:String): Note {
