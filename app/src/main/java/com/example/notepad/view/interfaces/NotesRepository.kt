@@ -5,8 +5,7 @@ import com.example.notepad.model.data.Note
 
 interface NotesRepository {
 
-    fun getAllNotes(): List<Note>
-    fun getNote(title: String): Note
+    fun getAllNotes(callBack: Responsable)
     fun insertNote(note: Note)
     fun deleteNote(title: String)
 }

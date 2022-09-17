@@ -1,16 +1,22 @@
 package com.example.notepad.view.fragments
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.notepad.R
 import com.example.notepad.databinding.FragmentCreateNoteBinding
 import com.example.notepad.model.data.Note
 import com.example.notepad.view.viewmodel.NoteListViewModel
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class CreateNoteFragment : Fragment() {
@@ -30,6 +36,7 @@ class CreateNoteFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,7 +54,9 @@ class CreateNoteFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val text = binding.noteInput.text.toString()
-            val note = Note(title, text, "01.07.2022")
+            val dateTime = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy, hh:mm"))
+            val note = Note(title, text, dateTime)
             viewModel.insert(note)
             switchFragment(NoteListFragment.newInstance())
         }

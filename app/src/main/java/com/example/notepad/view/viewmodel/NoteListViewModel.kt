@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.notepad.view.interfaces.NotesRepository
 import com.example.notepad.model.NotesRepositoryImpl
 import com.example.notepad.model.data.Note
+import com.example.notepad.view.interfaces.Responsable
 
 class NoteListViewModel(private val lifeData: MutableLiveData<AppState> = MutableLiveData<AppState>()): ViewModel() {
 
@@ -16,7 +17,13 @@ class NoteListViewModel(private val lifeData: MutableLiveData<AppState> = Mutabl
 
     fun sendRequest() {
 //        lifeData.value = AppState.Error(Exception())
-        lifeData.value = AppState.Success(repository.getAllNotes())
+        repository.getAllNotes(callBack)
+    }
+
+    private val callBack = object : Responsable {
+        override fun onResponse(list: List<Note>) {
+            lifeData.postValue(AppState.Success(list))
+        }
     }
 
     fun insert(note: Note) {

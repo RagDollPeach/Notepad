@@ -13,8 +13,7 @@ import com.example.notepad.view.interfaces.OnItemClick
 
 class NotesAdapter(private val dataList: List<Note>, private val callback: OnItemClick
 , private val deleteNote: Deletable
-) :
-    RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+) :RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val binding = NoteItemBinding.inflate(LayoutInflater.from(parent.context))

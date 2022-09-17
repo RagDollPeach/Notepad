@@ -19,7 +19,6 @@ class MyApplication : Application() {
             if (noteDatabase == null) {
                 noteDatabase =
                     Room.databaseBuilder(getMyApp(), NoteDatabase::class.java, "MyDatabase")
-                        .allowMainThreadQueries()
                         .build()
             }
             return noteDatabase!!
