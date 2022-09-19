@@ -17,7 +17,7 @@ import com.example.notepad.view.interfaces.OnItemClick
 import com.example.notepad.view.viewmodel.AppState
 import com.example.notepad.view.viewmodel.NoteListViewModel
 
-class NoteListFragment : Fragment() , OnItemClick , Deletable{
+class NoteListFragment : Fragment(), OnItemClick, Deletable {
 
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
@@ -26,7 +26,9 @@ class NoteListFragment : Fragment() , OnItemClick , Deletable{
         fun newInstance() = NoteListFragment()
     }
 
-    private val viewModel: NoteListViewModel by lazy { ViewModelProvider.NewInstanceFactory().create(NoteListViewModel::class.java) }
+    private val viewModel: NoteListViewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(NoteListViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +42,14 @@ class NoteListFragment : Fragment() , OnItemClick , Deletable{
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendRequest()
+
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment.newInstance()) }
     }
 
     private fun renderData(appState: AppState) {
         val recyclerView = binding.recyclerView
-        when(appState) {
-            is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/}
+        when (appState) {
+            is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/ }
             is AppState.Success -> {
                 /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
                 recyclerView.layoutManager = LinearLayoutManager(context)

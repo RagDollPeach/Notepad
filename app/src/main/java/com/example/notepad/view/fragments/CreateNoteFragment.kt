@@ -1,6 +1,7 @@
 package com.example.notepad.view.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,6 +28,12 @@ class CreateNoteFragment : Fragment() {
 
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
+    private val pref: SharedPreferences by lazy {
+        requireActivity().getSharedPreferences(
+            "test",
+            Context.MODE_PRIVATE
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +47,6 @@ class CreateNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE)
         val noteText = binding.noteInput
         val titleText = binding.titleInput
         titleText.setText(pref.getString("title", ""))
@@ -50,14 +56,22 @@ class CreateNoteFragment : Fragment() {
         binding.fab.setOnClickListener { switchFragment(NoteListFragment.newInstance()) }
 
         val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
+        saveNote(viewModel)
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveNote(viewModel: NoteListViewModel) {
         binding.saveButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val text = binding.noteInput.text.toString()
             val dateTime = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy, hh:mm"))
             val note = Note(title, text, dateTime)
-            viewModel.insert(note)
+            if (pref.getString("title", "") == binding.titleInput.text.toString()) {
+                viewModel.update(note)
+            } else {
+                viewModel.insert(note)
+            }
             switchFragment(NoteListFragment.newInstance())
         }
     }

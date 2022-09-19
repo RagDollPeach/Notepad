@@ -7,5 +7,6 @@ interface NotesRepository {
 
     fun getAllNotes(callBack: Responsable)
     fun insertNote(note: Note)
+    fun update(note: Note)
     fun deleteNote(title: String)
 }

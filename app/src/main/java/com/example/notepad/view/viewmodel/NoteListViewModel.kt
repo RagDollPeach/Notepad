@@ -21,13 +21,17 @@ class NoteListViewModel(private val lifeData: MutableLiveData<AppState> = Mutabl
     }
 
     private val callBack = object : Responsable {
-        override fun onResponse(list: List<Note>) {
+        override fun onResponse(list: MutableList<Note>) {
             lifeData.postValue(AppState.Success(list))
         }
     }
 
     fun insert(note: Note) {
         repository.insertNote(note)
+    }
+
+    fun update(note: Note) {
+        repository.update(note)
     }
 
     fun delete(title: String) {

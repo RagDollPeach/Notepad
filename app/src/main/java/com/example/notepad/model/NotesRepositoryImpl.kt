@@ -10,7 +10,7 @@ class NotesRepositoryImpl : NotesRepository {
 
     override fun getAllNotes(callBack: Responsable) {
         Thread {
-            callBack.onResponse(converterEntityToNote(MyApplication.getNoteDatabase().noteDao().getAllNotes()))
+            callBack.onResponse(converterEntityToNote(MyApplication.getNoteDatabase().noteDao().getAllNotes()) as MutableList<Note>)
         }.start()
     }
 
@@ -19,6 +19,12 @@ class NotesRepositoryImpl : NotesRepository {
             MyApplication.getNoteDatabase().noteDao().insert(converterWeatherToEntity(note))
         }.start()
 
+    }
+
+    override fun update(note: Note) {
+        Thread {
+            MyApplication.getNoteDatabase().noteDao().updateNoteBYTitle(note.title,note.text,note.date)
+        }.start()
     }
 
     override fun deleteNote(title: String) {
