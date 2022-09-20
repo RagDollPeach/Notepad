@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +26,7 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
-    private val flag by lazy { requireActivity().getSharedPreferences("FLAG",Context.MODE_PRIVATE) }
+    private val flag by lazy { requireActivity().getSharedPreferences("FLAG", Context.MODE_PRIVATE) }
 
     companion object {
         fun newInstance() = NoteListFragment()
@@ -51,7 +51,7 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment.newInstance()) }
 
         binding.noteViewChange.setOnClickListener {
-            val menu = PopupMenu(context,view)
+            val menu = PopupMenu(requireContext(),binding.noteViewChange)
             menu.menu.add("One row")
             menu.menu.add("Two rows")
             menu.menu.add("Three rows")
@@ -71,11 +71,12 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
     private fun renderData(appState: AppState) {
         val recyclerView = binding.recyclerView
         when (appState) {
-            is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/ }
+            is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
+            }
             is AppState.Success -> {
                 /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
 
-                recyclerView.layoutManager = flag.getString("flag","")?.let { changeItemView(it) }
+                recyclerView.layoutManager = flag.getString("flag", "")?.let { changeItemView(it) }
                 recyclerView.adapter = NotesAdapter(appState.noteData, this, this)
             }
         }

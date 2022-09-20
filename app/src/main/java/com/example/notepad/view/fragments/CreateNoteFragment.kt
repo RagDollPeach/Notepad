@@ -14,10 +14,8 @@ import com.example.notepad.R
 import com.example.notepad.databinding.FragmentCreateNoteBinding
 import com.example.notepad.model.data.Note
 import com.example.notepad.view.viewmodel.NoteListViewModel
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class CreateNoteFragment : Fragment() {
