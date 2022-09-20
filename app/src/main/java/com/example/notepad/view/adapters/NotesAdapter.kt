@@ -18,7 +18,7 @@ class NotesAdapter(
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val binding = NoteItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = NoteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NoteViewHolder(binding.root)
     }
 

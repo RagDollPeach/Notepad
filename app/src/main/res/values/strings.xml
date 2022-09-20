@@ -8,4 +8,5 @@
     <string name="save">Save</string>
     <string name="insert_date">Insert date</string>
     <string name="clear">Clear text</string>
+    <string name="change_notes_view">Change notes view</string>
 </resources>

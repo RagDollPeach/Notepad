@@ -1,5 +1,6 @@
 package com.example.notepad
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html.fromHtml
@@ -19,5 +20,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, NoteListFragment.newInstance())
                 .commitNow()
         }
+
+        getSharedPreferences("FLAG", Context.MODE_PRIVATE)
     }
 }

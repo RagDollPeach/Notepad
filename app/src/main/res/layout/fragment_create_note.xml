@@ -49,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="7dp"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
@@ -57,10 +58,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="#8BC34A"
+            android:backgroundTint="#B9E686"
             android:text="@string/save"
             android:textAllCaps="false"
-            app:cornerRadius="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:cornerRadius="10dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
@@ -70,10 +73,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="#58A6E4"
+            android:backgroundTint="#80BDED"
             android:text="@string/insert_date"
             android:textAllCaps="false"
-            app:cornerRadius="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:cornerRadius="10dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
@@ -83,10 +88,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="#B6362C"
+            android:backgroundTint="#EC968F"
             android:text="@string/clear"
             android:textAllCaps="false"
-            app:cornerRadius="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:cornerRadius="10dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
@@ -102,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:backgroundTint="#95EC99"
             app:fabAlignmentMode="center"
             app:hideOnScroll="true"
             app:layout_scrollFlags="scroll|enterAlways"
