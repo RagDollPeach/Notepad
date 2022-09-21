@@ -2,11 +2,11 @@ package com.example.notepad.view.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,14 +52,14 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
 
         binding.noteViewChange.setOnClickListener {
             val menu = PopupMenu(requireContext(),binding.noteViewChange)
-            menu.menu.add("One row")
-            menu.menu.add("Two rows")
-            menu.menu.add("Three rows")
+            menu.menu.add("One column")
+            menu.menu.add("Two columns")
+            menu.menu.add("Three columns")
             menu.setOnMenuItemClickListener { item ->
                 when(item.title) {
-                    "One row" -> flag.edit().putString("flag", "leaner").apply()
-                    "Two rows" -> flag.edit().putString("flag", "stagger").apply()
-                    "Three rows" -> flag.edit().putString("flag", "grid").apply()
+                    "One column" -> flag.edit().putString("flag", "leaner").apply()
+                    "Two columns" -> flag.edit().putString("flag", "stagger").apply()
+                    "Three columns" -> flag.edit().putString("flag", "grid").apply()
                 }
                 switchFragment(newInstance())
                 return@setOnMenuItemClickListener true
@@ -71,11 +71,8 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
     private fun renderData(appState: AppState) {
         val recyclerView = binding.recyclerView
         when (appState) {
-            is AppState.Error -> { /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
-            }
+            is AppState.Error -> {}
             is AppState.Success -> {
-                /*binding.root.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE*/
-
                 recyclerView.layoutManager = flag.getString("flag", "")?.let { changeItemView(it) }
                 recyclerView.adapter = NotesAdapter(appState.noteData, this, this)
             }
@@ -96,10 +93,11 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
     }
 
     override fun onItemClick(note: Note) {
-        val pref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE)
+        val pref = requireActivity().getSharedPreferences("notes", Context.MODE_PRIVATE)
         pref.edit().putString("title", note.title).apply()
         pref.edit().putString("text", note.text).apply()
         pref.edit().putString("date", note.date).apply()
+        pref.edit().putString("color", note.color).apply()
 
         switchFragment(CreateNoteFragment.newInstance())
     }

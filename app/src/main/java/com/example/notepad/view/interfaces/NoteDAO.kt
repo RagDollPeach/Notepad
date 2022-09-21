@@ -12,8 +12,8 @@ interface NoteDAO {
     @Insert(onConflict = REPLACE)
     fun insert(noteEntity: NoteEntity)
 
-    @Query("UPDATE note_entity SET text=:text, date=:date WHERE title=:title" )
-    fun updateNoteBYTitle(title: String, text: String, date: String)
+    @Query("UPDATE note_entity SET text=:text, date=:date, color=:color WHERE title=:title" )
+    fun updateNoteBYTitle(title: String, text: String, date: String, color: String)
 
     @Query("SELECT * FROM note_entity")
     fun getAllNotes(): List<NoteEntity>

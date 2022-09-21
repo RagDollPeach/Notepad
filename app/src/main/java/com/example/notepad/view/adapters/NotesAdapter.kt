@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notepad.MyApplication
+import com.example.notepad.R
 import com.example.notepad.databinding.NoteItemBinding
 import com.example.notepad.model.data.Note
 import com.example.notepad.view.interfaces.Deletable
@@ -38,6 +40,11 @@ class NotesAdapter(
         fun bind(note: Note) {
             binding.noteTitle.text = note.title
             binding.noteDate.text = note.date
+            when(note.color) {
+                "red" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.red, MyApplication.getMyApp().theme))
+                "yellow" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.yellow, MyApplication.getMyApp().theme))
+                "purple" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.purple, MyApplication.getMyApp().theme))
+            }
             binding.root.setOnClickListener {
                 callback.onItemClick(note)
             }

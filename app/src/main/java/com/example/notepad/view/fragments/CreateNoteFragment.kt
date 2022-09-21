@@ -26,9 +26,11 @@ class CreateNoteFragment : Fragment() {
 
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
+
+    private var noteColor: String = "yellow"
     private val pref: SharedPreferences by lazy {
         requireActivity().getSharedPreferences(
-            "test",
+            "notes",
             Context.MODE_PRIVATE
         )
     }
@@ -47,11 +49,33 @@ class CreateNoteFragment : Fragment() {
 
         val noteText = binding.noteInput
         val titleText = binding.titleInput
+
         titleText.setText(pref.getString("title", ""))
         noteText.setText(pref.getString("text", ""))
 
+        when(pref.getString("color","yellow")) {
+            "red" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.red, requireActivity().theme))
+            "yellow" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.yellow, requireActivity().theme))
+            "purple" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.purple, requireActivity().theme))
+        }
+
         binding.clearButton.setOnClickListener { noteText.setText("") }
         binding.fab.setOnClickListener { switchFragment(NoteListFragment.newInstance()) }
+
+        binding.redChip.setOnClickListener {
+            binding.noteInput.setBackgroundResource(R.color.red)
+            noteColor = "red"
+        }
+
+        binding.yellowChip.setOnClickListener {
+            binding.noteInput.setBackgroundResource(R.color.yellow)
+            noteColor = "yellow"
+        }
+
+        binding.purpleChip.setOnClickListener {
+            binding.noteInput.setBackgroundResource(R.color.purple)
+            noteColor = "purple"
+        }
 
         val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
         saveNote(viewModel)
@@ -64,7 +88,7 @@ class CreateNoteFragment : Fragment() {
             val text = binding.noteInput.text.toString()
             val dateTime = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy, hh:mm"))
-            val note = Note(title, text, dateTime)
+            val note = Note(title, text, dateTime, noteColor)
             if (pref.getString("title", "") == binding.titleInput.text.toString()) {
                 viewModel.update(note)
             } else {
@@ -83,8 +107,7 @@ class CreateNoteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE).edit().clear().apply()
+        requireActivity().getSharedPreferences("notes", Context.MODE_PRIVATE).edit().clear().apply()
         _binding = null
     }
-
 }

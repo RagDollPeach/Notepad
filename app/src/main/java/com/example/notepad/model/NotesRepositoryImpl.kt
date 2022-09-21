@@ -23,7 +23,7 @@ class NotesRepositoryImpl : NotesRepository {
 
     override fun update(note: Note) {
         Thread {
-            MyApplication.getNoteDatabase().noteDao().updateNoteBYTitle(note.title,note.text,note.date)
+            MyApplication.getNoteDatabase().noteDao().updateNoteBYTitle(note.title,note.text,note.date,note.color)
         }.start()
     }
 
@@ -36,7 +36,7 @@ class NotesRepositoryImpl : NotesRepository {
 
     private fun converterEntityToNote(entityList: List<NoteEntity>): List<Note> {
         return entityList.map {
-            Note(it.title, it.text, it.date)
+            Note(it.title, it.text, it.date,it.color)
         }
     }
 
@@ -45,7 +45,8 @@ class NotesRepositoryImpl : NotesRepository {
             0,
             note.title,
             note.text,
-            note.date
+            note.date,
+            note.color
         )
     }
 }
