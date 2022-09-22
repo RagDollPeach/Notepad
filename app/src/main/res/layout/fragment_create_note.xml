@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,8 +19,6 @@
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold" />
-
-
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/red_chip"
@@ -61,14 +59,13 @@
                 app:chipStrokeWidth="1dp"
                 app:chipStrokeColor="@color/black"/>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
 
         <EditText
             android:id="@+id/title_input"
@@ -77,7 +74,7 @@
             android:layout_margin="10dp"
             android:hint="@string/title"
             android:padding="10dp"
-            android:textColorHint="#CAC5C5"
+            android:textColorHint="#989595"
             android:textStyle="bold"
             android:autofillHints="false"
             android:inputType="textShortMessage" />
@@ -97,71 +94,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="7dp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="#F1B45B"
-            android:text="@string/save"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:cornerRadius="10dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/date_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="#80BDED"
-            android:text="@string/insert_date"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:cornerRadius="10dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/clear_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="#EC968F"
-            android:text="@string/clear"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:cornerRadius="10dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
-
-    </LinearLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="end">
-
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/green_light"
+            android:backgroundTint="@color/white"
             app:fabAlignmentMode="center"
             app:hideOnScroll="true"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -175,9 +113,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#E46F4A"
             app:layout_anchor="@id/bottom_app_bar"
-            app:srcCompat="@drawable/ic_back_fab"
+            app:srcCompat="@drawable/ic_baseline_save_alt_24"
             app:tint="@android:color/white"
             android:contentDescription="@string/createnotefragment" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

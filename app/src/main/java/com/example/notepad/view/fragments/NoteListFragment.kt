@@ -50,6 +50,10 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         viewModel.sendRequest()
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment.newInstance()) }
 
+        chooseNoteView()
+    }
+
+    private fun chooseNoteView() {
         binding.noteViewChange.setOnClickListener {
             val menu = PopupMenu(requireContext(),binding.noteViewChange)
             menu.menu.add("One column")
@@ -83,7 +87,7 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         return when (flag) {
             "leaner" -> LinearLayoutManager(context)
             "stagger" -> StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            "grid" -> GridLayoutManager(context, 3)
+            "grid" -> StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL)
             else -> LinearLayoutManager(context)
         }
     }

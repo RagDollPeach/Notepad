@@ -4,7 +4,7 @@
     <string name="new_note">New note</string>
     <string name="title">Title…</string>
     <string name="note">Note text…</string>
-    <string name="save">Save</string>
+    <string name="save">Save Note</string>
     <string name="insert_date">Insert date</string>
     <string name="clear">Clear text</string>
     <string name="change_notes_view">Change notes view</string>

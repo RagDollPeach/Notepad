@@ -49,18 +49,16 @@ class CreateNoteFragment : Fragment() {
 
         val noteText = binding.noteInput
         val titleText = binding.titleInput
+        noteColor = pref.getString("color","yellow").toString()
 
         titleText.setText(pref.getString("title", ""))
         noteText.setText(pref.getString("text", ""))
 
-        when(pref.getString("color","yellow")) {
+        when(noteColor) {
             "red" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.red, requireActivity().theme))
             "yellow" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.yellow, requireActivity().theme))
             "purple" -> binding.noteInput.setBackgroundColor(resources.getColor(R.color.purple, requireActivity().theme))
         }
-
-        binding.clearButton.setOnClickListener { noteText.setText("") }
-        binding.fab.setOnClickListener { switchFragment(NoteListFragment.newInstance()) }
 
         binding.redChip.setOnClickListener {
             binding.noteInput.setBackgroundResource(R.color.red)
@@ -83,7 +81,7 @@ class CreateNoteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveNote(viewModel: NoteListViewModel) {
-        binding.saveButton.setOnClickListener {
+        binding.fab.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val text = binding.noteInput.text.toString()
             val dateTime = LocalDateTime.now()

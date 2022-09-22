@@ -25,7 +25,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="42dp"
         android:layout_marginBottom="50dp"
         android:padding="5dp" />
 
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/green_light"
+        android:backgroundTint="@color/white"
         app:fabAlignmentMode="center"
         app:hideOnScroll="false"
         app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar"
