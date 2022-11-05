@@ -165,26 +165,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar_create"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/white"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar"
-        app:navigationIconTint="@color/black"
-        app:strokeWidth="1dp" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#E46F4A"
         android:contentDescription="@string/createnotefragment"
-        app:layout_anchor="@id/bottom_app_bar_create"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         app:srcCompat="@drawable/ic_baseline_save_alt_24"
         app:tint="@android:color/white" />
 

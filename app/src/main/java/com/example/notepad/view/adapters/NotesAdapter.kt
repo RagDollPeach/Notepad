@@ -40,7 +40,7 @@ class NotesAdapter(
         fun bind(note: Note) {
             binding.noteTitle.text = note.title
             binding.noteDate.text = note.date
-            when(note.color) {
+            when (note.color) {
                 "red" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.red, MyApplication.getMyApp().theme))
                 "yellow" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.yellow, MyApplication.getMyApp().theme))
                 "purple" -> binding.noteItemCard.setCardBackgroundColor(itemView.resources.getColor(R.color.purple, MyApplication.getMyApp().theme))

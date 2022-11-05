@@ -1,7 +1,6 @@
 package com.example.notepad.model.alarmreceiver
 
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,7 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.notepad.MainActivity
-import com.example.notepad.MyApplication
 import com.example.notepad.R
 
 class AlarmReceiver : BroadcastReceiver() {

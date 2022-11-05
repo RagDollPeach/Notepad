@@ -62,13 +62,19 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val noteText = binding.noteInput
-        val noteTitle = binding.titleInput
+        setFields()
+        setNoteColor()
+        pressColoredChip()
 
+        binding.timeButton.setOnClickListener { timePickerDialog() }
+        binding.dateButton.setOnClickListener { datePickerDialog() }
+
+        val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
+        saveNote(viewModel)
+    }
+
+    private fun setNoteColor() {
         noteColor = pref.getString("color", "yellow").toString()
-
-        noteTitle.setText(pref.getString("title", ""))
-        noteText.setText(pref.getString("text", ""))
 
         when (noteColor) {
             "red" -> binding.noteInput.setBackgroundColor(
@@ -90,7 +96,17 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
                 )
             )
         }
+    }
 
+    private fun setFields() {
+        val noteText = binding.noteInput
+        val noteTitle = binding.titleInput
+
+        noteTitle.setText(pref.getString("title", ""))
+        noteText.setText(pref.getString("text", ""))
+    }
+
+    private fun pressColoredChip() {
         binding.redChip.setOnClickListener {
             binding.noteInput.setBackgroundResource(R.color.red)
             noteColor = "red"
@@ -105,12 +121,6 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
             binding.noteInput.setBackgroundResource(R.color.purple)
             noteColor = "purple"
         }
-
-        binding.timeButton.setOnClickListener { timePickerDialog() }
-        binding.dateButton.setOnClickListener { datePickerDialog() }
-
-        val viewModel: NoteListViewModel = ViewModelProvider(this)[NoteListViewModel::class.java]
-        saveNote(viewModel)
     }
 
 //    private fun timePicker() {
