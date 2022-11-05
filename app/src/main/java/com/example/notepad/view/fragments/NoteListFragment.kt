@@ -2,13 +2,10 @@ package com.example.notepad.view.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -22,11 +19,14 @@ import com.example.notepad.view.viewmodel.AppState
 import com.example.notepad.view.viewmodel.NoteListViewModel
 
 
-class NoteListFragment : Fragment(), OnItemClick, Deletable {
+class NoteListFragment private constructor() : Fragment(), OnItemClick, Deletable{
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
-    private val flag by lazy { requireActivity().getSharedPreferences("FLAG", Context.MODE_PRIVATE) }
+
+    private val flag by lazy {
+        requireActivity().getSharedPreferences("FLAG", Context.MODE_PRIVATE)
+    }
 
     companion object {
         fun newInstance() = NoteListFragment()
@@ -40,6 +40,7 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentNotesListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,27 +50,42 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendRequest()
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment.newInstance()) }
+    }
 
-        chooseNoteView()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_action_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_notes_view_change -> {
+                chooseNoteView()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun chooseNoteView() {
-        binding.noteViewChange.setOnClickListener {
-            val menu = PopupMenu(requireContext(),binding.noteViewChange)
-            menu.menu.add("One column")
-            menu.menu.add("Two columns")
-            menu.menu.add("Three columns")
-            menu.setOnMenuItemClickListener { item ->
-                when(item.title) {
-                    "One column" -> flag.edit().putString("flag", "leaner").apply()
-                    "Two columns" -> flag.edit().putString("flag", "stagger").apply()
-                    "Three columns" -> flag.edit().putString("flag", "grid").apply()
-                }
-                switchFragment(newInstance())
-                return@setOnMenuItemClickListener true
+        val menu = PopupMenu(
+            requireContext(), requireActivity()
+                .findViewById(R.id.menu_notes_view_change)
+        )
+        menu.menu.add("One column")
+        menu.menu.add("Two columns")
+        menu.menu.add("Three columns")
+        menu.setOnMenuItemClickListener { item ->
+            when (item.title) {
+                "One column" -> flag.edit().putString("flag", "leaner").apply()
+                "Two columns" -> flag.edit().putString("flag", "stagger").apply()
+                "Three columns" -> flag.edit().putString("flag", "grid").apply()
             }
-            menu.show()
+            switchFragment(newInstance())
+            return@setOnMenuItemClickListener true
         }
+        menu.show()
     }
 
     private fun renderData(appState: AppState) {
@@ -77,7 +93,8 @@ class NoteListFragment : Fragment(), OnItemClick, Deletable {
         when (appState) {
             is AppState.Error -> {}
             is AppState.Success -> {
-                recyclerView.layoutManager = flag.getString("flag", "")?.let { changeItemView(it) }
+                recyclerView.layoutManager = flag.getString("flag", "")
+                    ?.let { changeItemView(it) }
                 recyclerView.adapter = NotesAdapter(appState.noteData, this, this)
             }
         }

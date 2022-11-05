@@ -1,4 +1,4 @@
-package com.example.notepad.view.interfaces
+package com.example.notepad.model.room
 
 import androidx.room.Dao
 import androidx.room.Insert

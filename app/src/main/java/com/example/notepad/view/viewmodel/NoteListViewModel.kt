@@ -2,7 +2,7 @@ package com.example.notepad.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.notepad.view.interfaces.NotesRepository
+import com.example.notepad.model.NotesRepository
 import com.example.notepad.model.NotesRepositoryImpl
 import com.example.notepad.model.data.Note
 import com.example.notepad.view.interfaces.Responsable
@@ -16,7 +16,7 @@ class NoteListViewModel(private val lifeData: MutableLiveData<AppState> = Mutabl
     }
 
     fun sendRequest() {
-//        lifeData.value = AppState.Error(Exception())
+        lifeData.value = AppState.Error(Exception())
         repository.getAllNotes(callBack)
     }
 

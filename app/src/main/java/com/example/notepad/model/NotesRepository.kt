@@ -1,6 +1,7 @@
-package com.example.notepad.view.interfaces
+package com.example.notepad.model
 
 import com.example.notepad.model.data.Note
+import com.example.notepad.view.interfaces.Responsable
 
 
 interface NotesRepository {

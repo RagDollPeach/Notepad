@@ -3,7 +3,6 @@ package com.example.notepad.model
 import com.example.notepad.MyApplication
 import com.example.notepad.model.data.Note
 import com.example.notepad.model.room.NoteEntity
-import com.example.notepad.view.interfaces.NotesRepository
 import com.example.notepad.view.interfaces.Responsable
 
 class NotesRepositoryImpl : NotesRepository {
@@ -18,7 +17,6 @@ class NotesRepositoryImpl : NotesRepository {
         Thread {
             MyApplication.getNoteDatabase().noteDao().insert(converterWeatherToEntity(note))
         }.start()
-
     }
 
     override fun update(note: Note) {
@@ -31,7 +29,6 @@ class NotesRepositoryImpl : NotesRepository {
         Thread {
             MyApplication.getNoteDatabase().noteDao().deleteNoteBYTitle(title)
         }.start()
-
     }
 
     private fun converterEntityToNote(entityList: List<NoteEntity>): List<Note> {

@@ -13,4 +13,9 @@
     <string name="purple">Purple</string>
     <string name="notelistfragment">.NoteListFragment</string>
     <string name="createnotefragment">.CreateNoteFragment</string>
+    <string name="note_view">Note view</string>
+    <string name="calendar">Calendar</string>
+    <string name="set_time">Set time</string>
+    <string name="set_date">Set date</string>
+    <string name="reminder">Reminder</string>
 </resources>
