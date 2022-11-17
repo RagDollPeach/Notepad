@@ -3,7 +3,7 @@ package com.example.notepad.view.fragments
 import android.app.AlarmManager
 import android.app.DatePickerDialog
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_MUTABLE
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
@@ -47,8 +47,8 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
             Context.MODE_PRIVATE
         )
     }
+
     private val calendarDate: Calendar = Calendar.getInstance()
-    private val calendarTime: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -123,30 +123,12 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         }
     }
 
-//    private fun timePicker() {
-//        val piker = MaterialTimePicker.Builder()
-//            .setTimeFormat(TimeFormat.CLOCK_24H)
-//            .setHour(12)
-//            .setMinute(0)
-//            .setTitleText("Testing")
-//            .build()
-//
-//        piker.show(requireActivity().supportFragmentManager,"note")
-//
-//        piker.addOnPositiveButtonClickListener {
-//            val time = "${piker.hour}:${piker.minute}"
-//            binding.setTimeTextView.text = time
-//            calendar[Calendar.HOUR] = piker.hour
-//            calendar[Calendar.MINUTE] = piker.minute
-//        }
-//    }
-
     @RequiresApi(Build.VERSION_CODES.S)
     private fun setAlarm() {
         val alarmManager = requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireActivity(), AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(requireActivity(), 0, intent, FLAG_MUTABLE)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP,(calendarDate.timeInMillis + calendarTime.timeInMillis) ,pendingIntent)
+        val pendingIntent = PendingIntent.getBroadcast(requireActivity(), 0, intent, FLAG_IMMUTABLE)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarDate.timeInMillis, pendingIntent)
 
         Toast.makeText(context, "Alarm set", Toast.LENGTH_LONG).show()
     }
@@ -166,8 +148,8 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val time = "$hourOfDay:$minute"
         binding.setTimeTextView.text = time
-        calendarTime[Calendar.HOUR] = hourOfDay
-        calendarTime[Calendar.MINUTE] = minute
+        calendarDate[Calendar.HOUR] = hourOfDay
+        calendarDate[Calendar.MINUTE] = minute
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -202,7 +184,7 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
             } else {
                 viewModel.insert(note)
             }
-            if (binding.setDateTextView.text != "" && binding.setTimeTextView.text != "") {
+            if (!binding.setDateTextView.text.isNullOrEmpty() && !binding.setTimeTextView.text.isNullOrEmpty()) {
                 setAlarm()
             }
 
