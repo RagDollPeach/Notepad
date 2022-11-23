@@ -47,8 +47,8 @@ class NoteListFragment private constructor() : Fragment(), OnItemClick, Deletabl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendRequest()
+        viewModel.getLifeData().observe(viewLifecycleOwner) { renderData(it) }
         binding.fab.setOnClickListener { switchFragment(CreateNoteFragment.newInstance()) }
     }
 

@@ -174,17 +174,32 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     @RequiresApi(Build.VERSION_CODES.S)
     private fun saveNote(viewModel: NoteListViewModel) {
         binding.fab.setOnClickListener {
-            val title = binding.titleInput.text.toString()
-            val text = binding.noteInput.text.toString()
+            var title = binding.titleInput.text.toString()
+            var text = binding.noteInput.text.toString()
+            if (title.isEmpty() && text.isEmpty()) {
+                Toast.makeText(requireContext(),"Please edit title or text", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            if (title.isEmpty()) {
+                title = "no title_" + (0..100000).random()
+            }
+            if (text.isEmpty()) {
+                text = "no text"
+            }
             val dateTime = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy, hh:mm"))
             val note = Note(title, text, dateTime, noteColor)
-            if (pref.getString("title", "") == binding.titleInput.text.toString()) {
-                viewModel.update(note)
+
+            if (pref.getString("title", "") == title) {
+                viewModel.updateByTitle(note)
+            }
+            else if ( pref.getString("text", "") == text) {
+                viewModel.updateByText(note)
             } else {
                 viewModel.insert(note)
             }
-            if (!binding.setDateTextView.text.isNullOrEmpty() && !binding.setTimeTextView.text.isNullOrEmpty()) {
+            if (!binding.setDateTextView.text.isNullOrEmpty() &&
+                !binding.setTimeTextView.text.isNullOrEmpty()) {
                 setAlarm()
             }
 
@@ -204,6 +219,4 @@ class CreateNoteFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         requireActivity().getSharedPreferences("notes", Context.MODE_PRIVATE).edit().clear().apply()
         _binding = null
     }
-
-
 }

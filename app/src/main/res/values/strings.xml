@@ -17,5 +17,6 @@
     <string name="calendar">Calendar</string>
     <string name="set_time">Set time</string>
     <string name="set_date">Set date</string>
-    <string name="reminder">Reminder</string>
+    <string name="no_title">no title</string>
+    <string name="reminder">Remind\n\t\t\t\t\t\ton</string>
 </resources>

@@ -104,9 +104,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="38sp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="15dp"
                 android:text="@string/reminder"
-                android:textColor="@color/black" />
+                android:textColor="#F41807" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

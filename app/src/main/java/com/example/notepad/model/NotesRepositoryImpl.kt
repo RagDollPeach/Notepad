@@ -19,7 +19,13 @@ class NotesRepositoryImpl : NotesRepository {
         }.start()
     }
 
-    override fun update(note: Note) {
+    override fun updateByText(note: Note) {
+        Thread {
+            MyApplication.getNoteDatabase().noteDao().updateNoteBYText(note.title,note.text,note.date,note.color)
+        }.start()
+    }
+
+    override fun updateByTitle(note: Note) {
         Thread {
             MyApplication.getNoteDatabase().noteDao().updateNoteBYTitle(note.title,note.text,note.date,note.color)
         }.start()

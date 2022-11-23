@@ -30,8 +30,12 @@ class NoteListViewModel(private val lifeData: MutableLiveData<AppState> = Mutabl
         repository.insertNote(note)
     }
 
-    fun update(note: Note) {
-        repository.update(note)
+    fun updateByText(note: Note) {
+        repository.updateByText(note)
+    }
+
+    fun updateByTitle(note: Note) {
+        repository.updateByTitle(note)
     }
 
     fun delete(title: String) {

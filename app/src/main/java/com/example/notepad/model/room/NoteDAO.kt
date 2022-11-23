@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.example.notepad.model.room.NoteEntity
 
 @Dao
 interface NoteDAO {
@@ -14,6 +13,9 @@ interface NoteDAO {
 
     @Query("UPDATE note_entity SET text=:text, date=:date, color=:color WHERE title=:title" )
     fun updateNoteBYTitle(title: String, text: String, date: String, color: String)
+
+    @Query("UPDATE note_entity SET title=:title, date=:date, color=:color WHERE text=:text" )
+    fun updateNoteBYText(title: String, text: String, date: String, color: String)
 
     @Query("SELECT * FROM note_entity")
     fun getAllNotes(): List<NoteEntity>
